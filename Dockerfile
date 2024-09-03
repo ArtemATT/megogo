@@ -28,7 +28,8 @@ WORKDIR /app
 COPY pom.xml .
 COPY src /app/src
 
-# Install project dependencies and build the project
-RUN ./mvnw install
+RUN ./mvnw compile
 
-CMD allure generate target/allure-results --clean -o target/allure-report
+# Run the tests and generate the Allure report
+CMD ["sh", "-c", "./mvnw verify && allure generate target/allure-results -o target/allure-report --clean"]
+
